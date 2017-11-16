@@ -14,13 +14,14 @@ class Block:
         return 'Block #{}'.format(self.index)
 
     def hash_block(self):
+        # https://docs.python.org/3/library/hashlib.html
         sha = hasher.sha256()
         seq = (str(x) for x in (
                self.index, self.timestamp, self.data, self.previous_hash))
         sha.update(''.join(seq).encode('utf-8'))
         return sha.hexdigest()
 
-
+# https://en.bitcoin.it/wiki/Genesis_block
 def make_genesis_block():
     """Make the first block in a block-chain."""
     block = Block(index=0,
